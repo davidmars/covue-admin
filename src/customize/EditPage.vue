@@ -4,9 +4,9 @@
         <v-row v-if="record">
             <v-col cols="6">
                 <v-text-field
-                        v-model="r.titre"
+                        v-model="r.name"
                         :counter="20"
-                        label="Titre"
+                        label="Name"
                         required
                 ></v-text-field>
             </v-col>

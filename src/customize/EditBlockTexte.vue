@@ -2,14 +2,6 @@
     <div>
         <edit-page :record="r"></edit-page>
         <v-row>
-            <v-col cols="6">
-                <v-text-field
-                        v-model="record.annee"
-                        :counter="4"
-                        label="Année"
-                        required
-                ></v-text-field>
-            </v-col>
             <v-col cols="12">
                 <v-textarea
                         filled
@@ -20,24 +12,15 @@
                         required
                 ></v-textarea>
             </v-col>
-            <v-col cols="3">
-                <v-file-input
-                        v-model="record.image"
-                        label="image"
-                        show-size
-                        accept="image/*"
-
-                ></v-file-input>
-            </v-col>
         </v-row>
     </div>
 
 </template>
 
 <script>
-    import EditPage from "@/components/records/EditPage";
+    import EditPage from "@/customize/EditPage";
     export default {
-        name: "EditDate",
+        name: "EditBlockTexte",
         components: {EditPage},
         props:["record"],
         data(){

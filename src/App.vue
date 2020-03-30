@@ -12,12 +12,12 @@
         <v-row>
 
           <v-col cols="3" >
-            <hr>
+            <v-divider></v-divider>
             <records-list :records="$store.getters.allRecords"></records-list>
           </v-col>
 
           <v-col cols="9">
-            <hr>
+            <v-divider></v-divider>
             <router-view/>
           </v-col>
 
