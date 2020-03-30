@@ -1,4 +1,4 @@
-# vuetify-test
+# covue-admin
 
 ## Project setup
 ```
