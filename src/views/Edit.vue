@@ -9,25 +9,28 @@
 
     <div v-if="record" class="content ">
 
-      <v-list-item>
-        <v-list-item-avatar color="grey">
-          <v-icon dark>{{$store.getters.recordDefinition(record.type).icon}}</v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title class="headline">{{ record.name }}</v-list-item-title>
-          <v-list-item-subtitle>{{record.type}}@{{record.id}} | {{record.date_created}} | {{record.date_modified}}</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+      <v-row class="align-center">
+        <v-col>
+          <v-list-item>
+            <v-list-item-avatar color="grey">
+              <v-icon dark>{{$store.getters.recordDefinition(record.type).icon}}</v-icon>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="headline">{{ record.name }}</v-list-item-title>
+              <v-list-item-subtitle>{{record.type}}@{{record.id}} | {{record.date_created}} | {{record.date_modified}}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-col>
+        <v-col class="d-flex justify-end">
+          <!--boutons enregistrement-->
+              <v-btn :disabled="record.id===0"  color="error" v-on:click="deleteRecord()" class="mr-4">Supprimer</v-btn>
+              <v-btn :disabled="!valid" color="success" v-on:click="saveRecord()">Enregistrer</v-btn>
+
+        </v-col>
+      </v-row>
+
 
       <v-divider class="mt-4"></v-divider>
-
-      <!--boutons enregistrement-->
-      <div class="pt-4">
-        <div class="d-flex justify-end">
-          <v-btn :disabled="record.id===0"  color="error" v-on:click="deleteRecord()" class="mr-4">Supprimer</v-btn>
-          <v-btn :disabled="!valid" color="success" v-on:click="saveRecord()">Enregistrer</v-btn>
-        </div>
-      </div>
 
       <!--le formulaire en fonction du type de record-->
       <component @valid="onValid"
