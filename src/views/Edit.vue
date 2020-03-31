@@ -1,5 +1,5 @@
 <template>
-  <div class="edit pt-4">
+  <div class="edit pt-4" :key="refreshId">
 
     <EditLoading :key="refreshId" v-if="loading"></EditLoading>
 
@@ -17,7 +17,16 @@
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title class="headline">{{ record.name }}</v-list-item-title>
-              <v-list-item-subtitle>{{record.type}}@{{record.id}} | {{record.date_created}} | {{record.date_modified}}</v-list-item-subtitle>
+              <v-list-item-subtitle>
+                <template v-if="record.uid">
+                  {{record.type}}@{{record.id}} |
+                  créé <b :title="record.date_created">{{createdAgo}}</b>,
+                  modifié <b :title="record.date_modified">{{modifiedAgo}}</b>
+                </template>
+                <template v-if="!record.uid">
+                  {{record.type}}
+                </template>
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-col>
@@ -25,7 +34,6 @@
           <!--boutons enregistrement-->
               <v-btn :disabled="record.id===0"  color="error" v-on:click="deleteRecord()" class="mr-4">Supprimer</v-btn>
               <v-btn :disabled="!valid" color="success" v-on:click="saveRecord()">Enregistrer</v-btn>
-
         </v-col>
       </v-row>
 
@@ -64,6 +72,10 @@
 <script>
 
   import EditLoading from "@/views/EditLoading";
+  import moment from "moment";
+  moment.locale('fr');
+  //import moment from 'moment'
+
   export default {
     name: 'Edit',
     components: {EditLoading},
@@ -76,19 +88,36 @@
         record: null,
         beforeChangeRecord:null,
         error: null,
-        refreshId:0
+        refreshId:0,
+        now:"",
+        modifiedAgo:"",
+        createdAgo:"",
       }
     },
     created(){
       this.fetchData();
+      setInterval(this.refreshDates, 1000);
     },
     watch:{
       '$route': 'fetchData',
     },
     methods:{
+      refreshDates(){
+        console.log(Math.random())
+        if(!this.record){
+          this.modifiedAgo = this.createdAgo = this.now="";
+        }else{
+          let m;
+          m=moment(this.record.date_modified);
+          this.modifiedAgo=m.fromNow();
+          m=moment(this.record.date_created);
+          this.createdAgo=m.fromNow();
+        }
+      },
       onValid(valid){
         this.valid=valid;
       },
+
       /**
        * Récupère les données
        **/
@@ -113,6 +142,7 @@
         }else{
           me.$store.dispatch("getRecordByUid",me.$route.params.uid).then((freshData) => {
             me.record=freshData;
+            me.refreshDates()
             me.loading=false;
             if(!me.record){
               me.error="Oups impossible de trouver "+me.$route.params.uid;
@@ -141,8 +171,17 @@
       },
       saveRecord(){
         //this.$store.commit("saveRecord",this.record);
+        this.refreshId++;
         this.$store.dispatch("saveRecord",this.record).then((freshData) => {
-          this.$router.push('/edit/'+freshData.uid);
+          this.record=freshData;
+          this.refreshDates()
+          this.$router.push('/edit/'+freshData.uid).catch(err => {
+            // Ignore the vuex err regarding  navigating to the page they are already on.
+            if (err.name != "NavigationDuplicated") {
+              // But print any other errors to the console
+              console.error(err);
+            }
+          })
         })
       }
 

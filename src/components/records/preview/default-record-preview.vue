@@ -10,7 +10,7 @@
         </v-list-item-icon>
         <v-list-item-content>
             <v-list-item-title v-text="r.name"></v-list-item-title>
-            <v-list-item-action-text v-text="r.uid"></v-list-item-action-text>
+            <v-list-item-action-text>{{r.uid}} {{r.date_modified}}</v-list-item-action-text>
         </v-list-item-content>
 
     </v-list-item>

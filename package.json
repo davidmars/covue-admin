@@ -12,6 +12,7 @@
     "core-js": "^3.6.4",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "moment": "^2.24.0",
     "querystring": "^0.2.0",
     "vee-validate": "^3.2.5",
     "vue": "^2.6.11",

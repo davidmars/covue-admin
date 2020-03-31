@@ -54,10 +54,11 @@ const store = new Vuex.Store({
     },
     actions: {
         saveRecord ({ commit }, recordData) {
+            let me=this;
             return new Promise((resolve, reject) => {
                 api.saveRecord(recordData,function(freshRecordData){
                     commit("setRecord",freshRecordData);
-                    resolve(freshRecordData)
+                    resolve(me.getters.getRecordByUid(freshRecordData.uid))
                 },function(err){
                     reject(err)
                 });
@@ -105,7 +106,6 @@ const store = new Vuex.Store({
          * @return {RecordDefinition}
          */
         recordDefinition:(state)=>(type)=>{
-            console.warn("record definition of ",type)
             return state.recordDefinitions.find(model => model.type===type);
         }
 
