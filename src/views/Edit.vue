@@ -1,59 +1,8 @@
 <template>
   <div class="edit pt-4">
 
-    <div class="loading" v-if="loading">
+    <EditLoading :key="refreshId" v-if="loading"></EditLoading>
 
-      <div class="row">
-
-        <div class="col-12">
-          <v-skeleton-loader
-                  class="mx-auto"
-                  type="heading"
-          ></v-skeleton-loader>
-        </div>
-
-        <div class="col-3">
-          <v-skeleton-loader
-                  class="mx-auto"
-                  type="sentences"
-          ></v-skeleton-loader>
-        </div>
-
-        <div class="col-3">
-          <v-skeleton-loader
-                  class="mx-auto"
-                  type="image"
-          ></v-skeleton-loader>
-        </div>
-
-        <div class="col-3">
-          <v-skeleton-loader
-                  class="mx-auto"
-                  type="text"
-          ></v-skeleton-loader>
-        </div>
-
-        <div class="col-3">
-          <v-skeleton-loader
-                  class="mx-auto"
-                  max-width="300"
-                  type="paragraph"
-          ></v-skeleton-loader>
-        </div>
-
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-    </div>
     <v-alert type="error" v-if="error">
         {{ error }}
       </v-alert>
@@ -88,8 +37,6 @@
 
       <v-divider class="mb-5"></v-divider>
 
-
-
     </div>
 
 
@@ -112,9 +59,11 @@
 
 
 <script>
+
+  import EditLoading from "@/views/EditLoading";
   export default {
     name: 'Edit',
-    components: {},
+    components: {EditLoading},
     data(){
       return {
         valid: true,
@@ -123,7 +72,8 @@
         loading: false,
         record: null,
         beforeChangeRecord:null,
-        error: null
+        error: null,
+        refreshId:0
       }
     },
     created(){
@@ -136,32 +86,37 @@
       onValid(valid){
         this.valid=valid;
       },
+      /**
+       * Récupère les données
+       **/
       fetchData(){
-        this.error = this.record = null;
+        this.refreshId++;
+        //mode loading
+        this.error = null;
+        this.record = null;
         this.loading = true;
         let me=this;
 
-        //nouveau?
+        //nouveau record ?
         let rx=/^([a-z]+)-new$/;
         let m=rx.exec(me.$route.params.uid);
         if(m){
-          me.record={
+          this.record={
             id:0,
             type: m[1],
             name:""
           };
           this.loading = false;
         }else{
-          setTimeout(function(){
-            me.record=me.$store.getters.getRecordByUid(me.$route.params.uid);
+          me.$store.dispatch("getRecordByUid",me.$route.params.uid).then((freshData) => {
+            me.record=freshData;
             me.loading=false;
             if(!me.record){
               me.error="Oups impossible de trouver "+me.$route.params.uid;
             }
             me.valid=true;
             me.changed=false;
-
-          },100);
+          })
         }
 
 
@@ -177,7 +132,9 @@
        */
       deleteRecordConfirmed(){
         this.dialogConfirmDelete=false;
-        this.$store.commit('deleteRecord',this.record)
+        this.$store.dispatch("deleteRecordByUid",this.record.uid).then(() => {
+          this.$router.push('/');
+        })
       },
       saveRecord(){
         //this.$store.commit("saveRecord",this.record);

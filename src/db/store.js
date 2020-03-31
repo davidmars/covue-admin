@@ -29,11 +29,11 @@ const store = new Vuex.Store({
         languages:languages
     },
     mutations: {
-        deleteRecord (state, recordData) {
-            state.records = state.records.filter(obj => obj !== recordData)
+        deleteRecord (state, uid) {
+            console.log("a",uid);
+            state.records = state.records.filter(obj => obj.uid !== uid)
         },
         setRecord(state, freshRecordData){
-            console.log("YO?")
             let me=this;
             let existing=this.getters.getRecordByUid(freshRecordData.uid);
             if(existing){
@@ -43,12 +43,9 @@ const store = new Vuex.Store({
                 }
             }else{
                 //injecte un nouveau record
-                console.log("ajoute",freshRecordData);
                 me.state.records.push(freshRecordData);
             }
         }
-    },
-    watch: {
     },
     computed:{
         records:function(){
@@ -64,10 +61,28 @@ const store = new Vuex.Store({
                 },function(err){
                     reject(err)
                 });
-
-
             })
-
+        },
+        getRecordByUid ({ commit }, uid) {
+            return new Promise((resolve, reject) => {
+                api.getRecordByUid(uid,function(freshRecordData){
+                    commit("setRecord",freshRecordData);
+                    resolve(freshRecordData)
+                },function(err){
+                    reject(err)
+                });
+            });
+        },
+        deleteRecordByUid ({ commit }, uid) {
+            return new Promise((resolve, reject) => {
+                api.deleteRecordByUid(uid,function(deletedUid){
+                    console.log("b",deletedUid)
+                    commit("deleteRecord",deletedUid);
+                    resolve(deletedUid)
+                },function(err){
+                    reject(err)
+                });
+            });
         }
     },
     getters:{
@@ -90,6 +105,7 @@ const store = new Vuex.Store({
          * @return {RecordDefinition}
          */
         recordDefinition:(state)=>(type)=>{
+            console.warn("record definition of ",type)
             return state.recordDefinitions.find(model => model.type===type);
         }
 

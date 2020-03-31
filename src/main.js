@@ -3,7 +3,7 @@ import App from './App.vue'
 import vuetify from '@/plugins/vuetify'
 
 //les composants de l'admin NBD
-import './globalComponents'
+import './global-imports'
 
 //le router
 import router from './router'

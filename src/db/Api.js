@@ -40,7 +40,7 @@ export default class Api {
     }
 
     /**
-     *
+     * Enregistre un record
      * @param recordData
      * @param cbSuccess
      * @param cbError
@@ -51,6 +51,32 @@ export default class Api {
         };
         this._call("records.save",recordData,success,cbError);
     }
+
+    /**
+     * Obtenir un recors
+     * @param uid
+     * @param cbSuccess
+     * @param cbError
+     */
+    getRecordByUid(uid,cbSuccess,cbError){
+        let success=function(json){
+            cbSuccess(json.data.json.record);
+        };
+        this._call("records.getRecordByUid",{uid:uid},success,cbError);
+    }
+    /**
+     * Supprimer un record
+     * @param uid
+     * @param cbSuccess
+     * @param cbError
+     */
+    deleteRecordByUid(uid,cbSuccess,cbError){
+        let success=function(json){
+            cbSuccess(json.data.json.deleted);
+        };
+        this._call("records.delete",{uid:uid},success,cbError);
+    }
+
 
 
 
