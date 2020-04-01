@@ -74,7 +74,6 @@
   import EditLoading from "@/views/EditLoading";
   import moment from "moment";
   moment.locale('fr');
-  //import moment from 'moment'
 
   export default {
     name: 'Edit',
@@ -103,7 +102,6 @@
     },
     methods:{
       refreshDates(){
-        console.log(Math.random())
         if(!this.record){
           this.modifiedAgo = this.createdAgo = this.now="";
         }else{
@@ -172,12 +170,14 @@
       saveRecord(){
         //this.$store.commit("saveRecord",this.record);
         this.refreshId++;
+        this.loading=true;
         this.$store.dispatch("saveRecord",this.record).then((freshData) => {
           this.record=freshData;
+          this.loading=false;
           this.refreshDates()
           this.$router.push('/edit/'+freshData.uid).catch(err => {
             // Ignore the vuex err regarding  navigating to the page they are already on.
-            if (err.name != "NavigationDuplicated") {
+            if (err.name !== "NavigationDuplicated") {
               // But print any other errors to the console
               console.error(err);
             }

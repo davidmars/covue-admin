@@ -7,6 +7,7 @@ const languages=require("@/customize/recordsDefinitions").languages;
 import Api from "@/db/Api";
 Vue.use(Vuex);
 
+//todo configurer
 const api=new Api("http://localhost/github/madagascar-timeline/fr/povApi/action");
 api.recordsList("pagedate",{},
     function(records){
@@ -21,12 +22,14 @@ api.recordsList("pagedate",{},
     }
 );
 
+
 const store = new Vuex.Store({
     state: {
         appLoaded:false,
         recordDefinitions:recordDefinitions,
         records: [],
-        languages:languages
+        languages:languages,
+        api:api,
     },
     mutations: {
         deleteRecord (state, uid) {
@@ -107,9 +110,11 @@ const store = new Vuex.Store({
          */
         recordDefinition:(state)=>(type)=>{
             return state.recordDefinitions.find(model => model.type===type);
-        }
+        },
+
 
     }
+
 });
 
 export default store;

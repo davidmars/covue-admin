@@ -9,3 +9,8 @@ Vue.component(
 //drapeaux
 import FlagIcon from 'vue-flag-icon'
 Vue.use(FlagIcon);
+
+//draggable
+Vue.component(
+    'draggable',()=>import('vuedraggable/dist/vuedraggable.common'),
+);
