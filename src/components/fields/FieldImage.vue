@@ -7,9 +7,7 @@
            :src="imgSrc">
 
         <div class="d-flex pa-5 justify-end align-center">
-
             <code v-if="debug" class="mr-1">{{uid}}</code>
-
             <v-btn fab small color="white" class="upload">
                 <v-icon small dark >mdi-cloud-upload</v-icon>
                 <input ref="input-file"
@@ -18,9 +16,6 @@
                        @change="setImage"
                 >
             </v-btn>
-
-
-
         </div>
 
         <v-progress-linear
@@ -43,10 +38,18 @@
             value: {
                 type: String
             },
+            /**
+             * Si true activera le debuggage
+             */
             debug:{
                 type:Boolean,
                 default:false
-            }
+            },
+            /**
+             * Un fichier à uploader
+             * @type {File}
+             */
+            fileToUpload:{}
         },
         data(){
             return{
@@ -71,6 +74,10 @@
                     console.log(me.$store.state.api.imgUrl(record.httpPath));
                     me.imgSrc=me.$store.state.api.imgUrl(record.httpPath);
                 })
+            }
+            //
+            if(this.fileToUpload){
+                this.setImage({target:{files:[this.fileToUpload]}})
             }
         },
         methods:{

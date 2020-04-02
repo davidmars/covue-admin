@@ -1,6 +1,6 @@
 <template>
     <div>
-        <FieldImage v-model="json.image" :debug="debug"></FieldImage>
+        <FieldImage :file-to-upload="json.file" v-model="json.image" :debug="debug"></FieldImage>
         <pre v-if="debug">{{json}}</pre>
         <v-card-text>
                     <v-text-field
@@ -46,6 +46,14 @@
                 this.json={};
             }
             this.json["blockType"]=this.$options.name;
+            if(this.json.file){
+                let me=this;
+                setTimeout(function(){
+                    delete me.json.file
+                },100);
+
+            }
+
         }
 
     }

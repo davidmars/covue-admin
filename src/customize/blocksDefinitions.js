@@ -2,12 +2,16 @@ import Vue from 'vue'
 
 const blocksDefintions={
     "BlockTexte":{
-        "humanName":"Texte",
-        "icon":"mdi-text-box-outline",
+        humanName:"Texte",
+        icon:"mdi-text-box-outline",
     },
     "BlockPhoto":{
-        "humanName":"Photo",
-        "icon":"mdi-image",
+        humanName:"Photo",
+        icon:"mdi-image",
+        file:{
+            accept:"image/*",
+            multiple:true
+        }
     }
 };
 
