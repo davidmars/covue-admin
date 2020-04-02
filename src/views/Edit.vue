@@ -46,7 +46,11 @@
                  :is="$store.getters.recordDefinition(record.type).components.edit">
       </component>
 
+      <h4>Debug here...</h4>
       <v-divider class="mb-5"></v-divider>
+
+      <pre><code>{{record}}</code></pre>
+
 
     </div>
 

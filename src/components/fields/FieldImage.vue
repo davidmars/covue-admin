@@ -6,12 +6,12 @@
            cover
            :src="imgSrc">
 
-        <v-card-title class="justify-end">
+        <div class="d-flex pa-5 justify-end align-center">
 
-            {{uid}}
+            <code v-if="debug" class="mr-1">{{uid}}</code>
 
-            <v-btn fab color="white" class="upload">
-                <v-icon dark>mdi-cloud-upload</v-icon>
+            <v-btn fab small color="white" class="upload">
+                <v-icon small dark >mdi-cloud-upload</v-icon>
                 <input ref="input-file"
                        type="file"
                        accept="image/*"
@@ -21,7 +21,7 @@
 
 
 
-        </v-card-title>
+        </div>
 
         <v-progress-linear
                 ref="uploadProgress"
@@ -39,13 +39,13 @@
 <script>
     export default {
         name: "FieldImage",
-
         props: {
-            fileRecordUid: {
-                type: String
-            },
             value: {
                 type: String
+            },
+            debug:{
+                type:Boolean,
+                default:false
             }
         },
         data(){
