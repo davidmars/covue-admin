@@ -52,7 +52,7 @@
         <h3>Photos</h3>
         <field-blocks
                 v-model="record.stuff"
-                :block-types="['BlockPhoto']"
+                :block-types="['BlockTexte','BlockPhoto']"
                 add-btn-label="Ajouter une photo"
         ></field-blocks>
 

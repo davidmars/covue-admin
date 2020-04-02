@@ -11,8 +11,7 @@ Vue.component(
 
 //--------CUSTOM FMK---------------
 
-import BlockPhoto from "@/customize/BlockPhoto";
-Vue.component('BlockPhoto',BlockPhoto);
+
 
 
 //--------FMK---------------

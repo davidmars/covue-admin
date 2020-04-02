@@ -1,17 +1,27 @@
 <template>
     <div class="blocks">
 
+
+
         <div v-if="json.length===0"
              class="d-flex pa-5 justify-center align-center">
-            <v-btn v-on:click="addStuffLine( 0)" dark  color="black">
+
+            <add-block-btn :blocks-types="blockTypes" @select="addStuffLine">
                 {{addBtnLabel}}
-                <v-icon right>mdi-cloud-upload</v-icon>
-            </v-btn>
+            </add-block-btn>
+            <v-spacer></v-spacer>
+            <add-block-btn :blocks-types="blockTypes" @select="addStuffLine">
+                {{addBtnLabel}}
+            </add-block-btn>
+
         </div>
+
+
+
 
         <draggable v-if="json.length>0" class="row" tag="div" :list="json" handle=".handle" >
             <v-col class="stuff-item" style="position: relative" cols="12" md="6" lg="4" xl="3" v-for="(item,index) in json" :key="item.id">
-                <v-card tile outlined flat class="my-5">
+                <v-card tile outlined flat class="my-5" min-height="200">
                     <v-system-bar lights-out dark absolute color="rgba(0,0,0,0.1)" window class="handle">
                         <v-spacer></v-spacer>
                         <v-icon  v-on:click="deleteStuffLine(index)">mdi-trash-can-outline</v-icon>
@@ -43,8 +53,10 @@
 </template>
 
 <script>
+    import AddBlockBtn from "@/components/fields/filed-blocks/add-block-btn";
     export default {
         name: "FieldBlocks",
+        components: {AddBlockBtn},
         props: {
             value: {
                 type: Array
@@ -79,12 +91,15 @@
             }
         },
         methods:{
-            addStuffLine(index=0){
-                if(this.json.length===0){
-                    this.json.push({id:new Date().getTime()});
-                }else{
-                    this.json.splice(index,0,{id:new Date().getTime()});
+            addStuffLine(index=0,blockType=null){
+                if(blockType===null){
+                    blockType=this.blockTypes[0];
                 }
+                this.json.splice(index,0,{
+                    blockType:blockType,
+                    id:new Date().getTime()
+                });
+
             },
             deleteStuffLine(index){
                 this.json.splice(index,1);

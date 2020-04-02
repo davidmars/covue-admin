@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from "vuex";
 
 const recordDefinitions=require("@/customize/recordsDefinitions").recordDefinitions;
+const blocksDefinitions=require("@/customize/blocksDefinitions").blocksDefintions;
 const languages=require("@/customize/recordsDefinitions").languages;
 
 import Api from "@/db/Api";
@@ -27,6 +28,7 @@ const store = new Vuex.Store({
     state: {
         appLoaded:false,
         recordDefinitions:recordDefinitions,
+        blocksDefinitions:blocksDefinitions,
         records: [],
         languages:languages,
         api:api,
