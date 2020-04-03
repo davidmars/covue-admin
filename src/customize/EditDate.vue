@@ -2,7 +2,7 @@
     <v-form v-model="valid" :key="refreshId" ref="form">
 
         <v-row>
-            <v-col cols="6">
+            <v-col cols="" lg="4">
                 <v-text-field
                         v-model="record.year"
                         :counter="4"
@@ -13,41 +13,15 @@
             </v-col>
         </v-row>
 
-        <v-row>
-            <v-col cols="12" lg="" v-for="lang in $store.state.languages" :key="lang.code">
-                <v-text-field
-                        v-model="record['title_'+lang.code]"
-                        :counter="30"
-                        :label="'Titre (' +lang.name+')'"
-                        required
-                        filled
-                >
-                    <template v-slot:append>
-                        <flag class="caption" :squared="false" :iso='lang.flag'/>
-                    </template>
-                </v-text-field>
-            </v-col>
-        </v-row>
+        <FieldInputTextLangs
+                v-model="record" field="title" label="Titre"
+                :counter="30"
+        ></FieldInputTextLangs>
 
-        <v-row>
-            <v-col cols="12" lg="" v-for="lang in $store.state.languages" :key="lang.code">
-
-                <v-textarea
-                        v-model="record['text_'+lang.code]"
-                        :counter="500"
-                        :label="'Texte ('+lang.name+')'"
-                        auto-grow
-                        filled
-                        required
-                        rows="4"
-                >
-                    <template v-slot:append>
-                        <flag class="caption" :squared="false" :iso='lang.flag'/>
-                    </template>
-
-                </v-textarea>
-            </v-col>
-        </v-row>
+        <FieldTextareaLangs
+                v-model="record" field="text" label="Texte"
+                :counter="500"
+        ></FieldTextareaLangs>
 
         <h3>Photos</h3>
         <field-blocks
@@ -100,10 +74,11 @@
     }
 </script>
 
-<style scoped lang="less">
-    .flag-mg{
-        outline: 1px solid red;
-    }
+<style lang="less">
+
+
+
+
 
 
 </style>

@@ -18,12 +18,13 @@ Vue.component(
 
 //fields
 import FieldImage from "@/components/fields/FieldImage";
-
+import FieldTextareaLangs from "@/components/fields/translated/FieldTextareaLangs";
+import FieldInputTextLangs from "@/components/fields/translated/FieldInputTextLangs";
 import FieldBlocks from "@/components/fields/FieldBlocks";
-//Vue.component('FieldImage',()=>import('@/components/fields/FieldImage'));
-
 
 Vue.component('FieldImage',FieldImage);
+Vue.component('FieldTextareaLangs',FieldTextareaLangs);
+Vue.component('FieldInputTextLangs',FieldInputTextLangs);
 Vue.component('FieldBlocks',FieldBlocks);
 
 //Vue.component('FieldBlocks',()=>import('@/components/fields/FieldBlocks'));

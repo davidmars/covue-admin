@@ -87,7 +87,6 @@
         },
         watch:{
           value:function(val){
-              console.warn("watch value",val)
               this.json=val;
           }
         },
