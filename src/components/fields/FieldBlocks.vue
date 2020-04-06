@@ -46,7 +46,7 @@
 </template>
 
 <script>
-    import AddBlockBtn from "@/components/fields/filed-blocks/add-block-btn";
+    import AddBlockBtn from "./FieldBlocks/add-block-btn";
     /**
      * Permet de gérer une liste de blocks
      * @displayName Field Blocks
