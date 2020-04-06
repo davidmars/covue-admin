@@ -42,7 +42,7 @@
 
       <!--le formulaire en fonction du type de record-->
       <component @valid="onValid"
-                 :record='record'
+                 v-model='record'
                  :is="$store.getters.recordDefinition(record.type).components.edit">
       </component>
 

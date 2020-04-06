@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const languages={
     "fr":{
         code:"fr",
@@ -15,54 +17,74 @@ const languages={
         flag:"mg"
     }
 };
+
+
 /**
  * La définition de nos modèles
  * @type {RecordDefinition[]}
  */
-const recordDefinitions=[
-        {
-            "type":"page",
-            "humanName":"Page",
-            "icon":"mdi-file-outline",
-            "create":true,
-            "components":{
-                "edit":"edit-page"
-            }
-        },
-        {
-            "type":"pagedate",
-            "icon":"mdi-calendar-clock",
-            "humanName":"Date",
-            "create":true,
-            "components":{
-                "edit":"edit-date"
-            }
-        },
-        {
-            "type":"blocktexte",
-            "icon":"mdi-text-box-outline",
-            "humanName":"Block Texte",
-            "create":true,
-            "components":{
-                "edit":"edit-block-texte"
-            }
+const recordDefinitions=[];
+
+//-----------------------------------------------tests-----------------------------------
+Vue.component('edit-page',()=>import('./tests/EditPage'),);
+recordDefinitions.push(
+    {
+        "type":"page",
+        "humanName":"Page",
+        "icon":"mdi-file-outline",
+        "create":true,
+        "components":{
+            "edit":"edit-page"
         }
-];
+    }
+);
 
-/**
- * ici il faut référencer les composants de chaque type de records
- */
-import Vue from 'vue'
+//------------------------------------------------madagascar--------------------------------
 
-Vue.component(
-    'edit-block-texte',()=>import('./EditBlockTexte'),
+Vue.component('edit-date',()=>import('./madagascar/EditDate'),);
+recordDefinitions.push(
+    {
+        "type":"pagedate",
+        "icon":"mdi-calendar-clock",
+        "humanName":"Date",
+        "create":true,
+        "components":{
+            "edit":"edit-date"
+        }
+    }
 );
-Vue.component(
-    'edit-date',()=>import('./EditDate'),
+
+//---------------------------------------sequence-prevention---------------------------------------
+import EditHumain from "@/customize/sequence-prevention/EditHumain";
+Vue.component("EditHumain",EditHumain);
+recordDefinitions.push(
+    {
+        "type":"humain",
+        "icon":"mdi-account",
+        "humanName":"Humain",
+        "create":true,
+        "components":{
+            "edit":"edit-humain"
+        }
+    }
 );
-Vue.component(
-    'edit-page',()=>import('./EditPage'),
+import EditEquipe from "@/customize/sequence-prevention/EditEquipe";
+Vue.component("EditEquipe",EditEquipe);
+recordDefinitions.push(
+    {
+        "type":"equipe",
+        "icon":"mdi-account-group",
+        "humanName":"Équipe",
+        "create":true,
+        "components":{
+            "edit":"edit-equipe"
+        }
+    }
 );
+
+
+
+
 
 export {
     languages,recordDefinitions

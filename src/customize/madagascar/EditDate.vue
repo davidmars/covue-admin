@@ -43,13 +43,21 @@
 
         name: "EditDate",
         components: {},
-        props:["record"],
+        props:{
+            /**
+             * Il s'agit des données json du champ
+             * @model
+             */
+            value: {
+                type: Object
+            },
+        },
 
         data(){
             return{
                 refreshId:0,
                 valid:true,
-                r:null,
+                record:null,
                 rules: {
                     required: value => !!value || 'Champ obligatoire.',
                     year: v => (v && v.length === 4) || '4 characters',
@@ -62,7 +70,10 @@
             }
         },
         created(){
-            this.r=this.record;
+            this.record=this.value;
+            if(!this.record){
+                this.record={};
+            }
             this.$emit("checkvalid",this.valid);
         },
         watch:{

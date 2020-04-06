@@ -16,10 +16,10 @@ const blocksDefintions={
 };
 
 //imports
-import BlockPhoto from "@/customize/BlockPhoto";
+import BlockPhoto from "@/customize/madagascar/BlockPhoto";
 Vue.component('BlockPhoto',BlockPhoto);
 
-import BlockTexte from "@/customize/BlockTexte";
+import BlockTexte from "@/customize/tests/BlockTexte";
 Vue.component('BlockTexte',BlockTexte);
 
 export {
