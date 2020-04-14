@@ -10,18 +10,8 @@ Vue.use(Vuex);
 
 //todo configurer
 const api=new Api("http://localhost/github/madagascar-timeline/fr/povApi/action");
-api.recordsList("pagedate",{},
-    function(records){
-        //store.state.records=records;
-        for(let r of records){
-            store.state.records.push(r);
-        }
-        store.state.appLoaded=true;
-    },
-    function (err) {
-        console.error("errr",err);
-    }
-);
+
+
 
 
 const store = new Vuex.Store({
@@ -113,10 +103,44 @@ const store = new Vuex.Store({
         recordDefinition:(state)=>(type)=>{
             return state.recordDefinitions.find(model => model.type===type);
         },
+        /**
+         *
+         * @param {string} type the record type
+         * @return {{}}
+         */
+        recordsByType:(state)=>(type)=>{
+            return state.records.filter(record => record.type===type);
+        },
 
 
     }
 
 });
+
+
+
+
+
+for(let recordType of recordDefinitions){
+    api.recordsList(recordType.type,{},
+        function(records){
+            for(let r of records){
+                store.state.records.push(r);
+            }
+        },
+        function (err) {
+            console.error("errr",err);
+        }
+    );
+}
+
+
+
+
+
+
+
+
+
 
 export default store;

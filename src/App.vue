@@ -2,18 +2,13 @@
   <div id="app">
     <v-app id="inspire">
 
-      <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link> |
-        <router-link to="/edit/1">edit/1</router-link>
-      </div>
+      <app-bar></app-bar>
 
-      <v-container fluid>
+      <v-container class="mt-10" fluid>
         <v-row>
-
           <v-col cols="3" >
             <v-divider></v-divider>
-            <records-list :records="$store.getters.allRecords"></records-list>
+            <main-menu></main-menu>
           </v-col>
 
           <v-col cols="9">
@@ -52,8 +47,8 @@
 }
 </style>
 <script>
-  import RecordsList from "@/components/RecordsList";
+  import AppBar from "@/components/layout/app-bar";
   export default {
-    components: {RecordsList}
+    components: {AppBar}
   }
 </script>

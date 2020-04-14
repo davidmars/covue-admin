@@ -1,12 +1,18 @@
 <template>
     <div>
-        <pre>{{record}}</pre>
         <v-row>
             <v-col>
                 <v-text-field
                         label="Nom de l'équipe"
                         v-model="record.name"
                 ></v-text-field>
+            </v-col>
+            <v-col cols="12">
+                <FieldSharedModelList
+                        v-model="record.sharedHumainList"
+                        type="humain"
+                        label="Membres de l'équipe"
+                ></FieldSharedModelList>
             </v-col>
         </v-row>
     </div>

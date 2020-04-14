@@ -8,7 +8,15 @@
      */
     export default {
         name: "record-icon",
-        props:["record"],
+        props:
+            {
+                "record":{
+                    type:Object,
+                    mandatory:true
+                }
+
+            }
+        ,
         data(){
             return{
                 r:null

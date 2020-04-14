@@ -1,6 +1,5 @@
 <template>
     <div>
-        <pre>{{record}}</pre>
         <v-row>
             <v-col cols="12" md="6">
                 <v-text-field
@@ -27,13 +26,20 @@
                         v-model="record.cleanpassword"
                 ></v-text-field>
             </v-col>
+            <v-col>
+                <FieldSharedModelList
+                    v-model="record.sharedEquipeList"
+                    type="equipe"
+                    label="équipes"
+                ></FieldSharedModelList>
+            </v-col>
         </v-row>
     </div>
 </template>
 
 <script>
     export default {
-        name: "EditEquipe",
+        name: "EditHumain",
         props:{
             /**
              * Il s'agit des données json du champ
@@ -53,7 +59,7 @@
             if(!this.record){
                 this.record={};
             }
-        },
+        }
     }
 </script>
 

@@ -56,7 +56,9 @@ export default class Api {
         let success=function(data){
             cbSuccess(data.json.record);
         };
-        this._call("records.getRecordByUid",{uid:uid},success,cbError);
+        this._call("records.getRecordByUid",{uid:uid},success,function(data){
+            cbError(data.errors);
+        });
     }
 
     /**
@@ -66,7 +68,7 @@ export default class Api {
      * @param cbError
      */
     saveRecord(recordData,cbSuccess,cbError){
-        console.log("recordData",recordData)
+        console.log("saveRecord",recordData)
         let success=function(data){
             cbSuccess(data.json.record);
         };
