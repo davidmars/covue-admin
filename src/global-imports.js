@@ -21,6 +21,9 @@ Vue.component(
 import MainMenu from "@/components/layout/main-menu";
 Vue.component('MainMenu',MainMenu);
 
+import AppBar from "@/components/layout/app-bar";
+Vue.component('AppBar',AppBar);
+
 import RecordTypeList from "@/components/layout/RecordTypeList";
 Vue.component('RecordTypeList',RecordTypeList);
 

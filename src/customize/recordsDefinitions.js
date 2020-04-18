@@ -18,6 +18,11 @@ const languages={
     }
 };
 
+const projectMeta={
+  title:"Séquence Prévention" ,
+  subtitle:"Roady"
+};
+
 
 /**
  * La définition de nos modèles
@@ -87,5 +92,7 @@ recordDefinitions.push(
 
 
 export {
-    languages,recordDefinitions
+    languages,
+    recordDefinitions,
+    projectMeta
 }

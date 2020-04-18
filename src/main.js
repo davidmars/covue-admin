@@ -10,7 +10,19 @@ import router from './router'
 //vuex et la BDD
 import store from './db/store'
 
+
 Vue.config.productionTip = false;
+
+let projectMetas={
+  "title":"Séquence Prévention",
+  "subTitle":"Roady",
+};
+/**
+ *
+ * @type {{subTitle: string, title: string}}
+ */
+Vue.prototype.$projectMetas = projectMetas;
+
 
 new Vue({
   vuetify,
