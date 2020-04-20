@@ -1,5 +1,5 @@
 <template>
-    <v-list-group>
+    <v-list-group dense>
 
         <template v-slot:activator>
 

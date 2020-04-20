@@ -1,5 +1,6 @@
 <template>
     <v-list-item
+            dense
             :to="{ name: 'edit', params: {
                         uid:r.uid
                         }

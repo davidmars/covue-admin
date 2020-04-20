@@ -9,10 +9,14 @@ import './global-imports'
 import router from './router'
 //vuex et la BDD
 import store from './db/store'
-
+import CurrentUser from "@/CurrentUser";
 
 Vue.config.productionTip = false;
 
+
+
+
+//Project metas TODO externaliser
 let projectMetas={
   "title":"Séquence Prévention",
   "subTitle":"Roady",
@@ -22,6 +26,13 @@ let projectMetas={
  * @type {{subTitle: string, title: string}}
  */
 Vue.prototype.$projectMetas = projectMetas;
+
+//User TODO dynamiser
+/**
+ * L'utilisateur courrament connecté
+ * @type {CurrentUser}
+ */
+Vue.prototype.$currentUser = new CurrentUser("d.marsalone@gmail.com","david");
 
 
 new Vue({

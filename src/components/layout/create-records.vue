@@ -1,5 +1,5 @@
 <template>
-    <v-list-group>
+    <v-list-group >
         <template v-slot:activator>
             <v-list-item-icon>
                 <v-icon>mdi-plus-circle</v-icon>
@@ -12,6 +12,7 @@
                 value="true"
         >
             <v-list-item
+                    dense
                     v-for="defintion in $store.state.recordDefinitions"
                     :key=defintion.type
                     :to="'/edit/'+defintion.type+'-new'">

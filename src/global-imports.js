@@ -1,6 +1,10 @@
 import Vue from 'vue'
 
+import SmartAvatar from "@/components/SmartAvatar";
+Vue.component('SmartAvatar',SmartAvatar);
 
+import ScreenSize from "@/components/ScreenSize";
+Vue.component('ScreenSize',ScreenSize);
 
 Vue.component(
     'record-icon',()=>import('./components/records/record-icon.vue'),
