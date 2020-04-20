@@ -69,7 +69,7 @@
             this.uid=this.value;
             if(this.uid){
                 let me=this;
-                this.$store.state.api.getRecordByUid(this.uid,function(record){
+                this.$store.state.api.records.byUid(this.uid,function(record){
                     console.log(record.httpPath);
                     console.log(me.$store.state.api.imgUrl(record.httpPath));
                     me.imgSrc=me.$store.state.api.imgUrl(record.httpPath);
@@ -104,19 +104,19 @@
                 this.uploadValue=0;
 
 
-                this.$store.state.api.uploadRecord(file,
+                this.$store.state.api.files.uploadRecord(file,
                     function(percent){
                         me.uploadValue=percent;
 
-                    },function(data){
-                        console.log("complete",data)
+                    },function(fileRecord){
+                        console.log("complete",fileRecord)
                         me.uploadValue=0;
                         me.uploadActive=false;
-                        if(data.json.record){
+                        if(fileRecord){
                             //me.item.image=data.json.record.uid
-                            me.uid=data.json.record.uid;
+                            me.uid=fileRecord.uid;
                             //me.$emit("change", me.uid);
-                            me.updateValue(data.json.record.uid);
+                            me.updateValue(fileRecord.uid);
                         }
                     },function (a,b,c) {
                         console.log("error",a,b,c)

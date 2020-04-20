@@ -5,7 +5,7 @@ const recordDefinitions=require("@/customize/recordsDefinitions").recordDefiniti
 const blocksDefinitions=require("@/customize/blocksDefinitions").blocksDefintions;
 const languages=require("@/customize/recordsDefinitions").languages;
 
-import Api from "@/db/Api";
+import Api from "@/apis/Api";
 Vue.use(Vuex);
 
 //todo configurer
@@ -51,7 +51,7 @@ const store = new Vuex.Store({
         saveRecord ({ commit }, recordData) {
             let me=this;
             return new Promise((resolve, reject) => {
-                api.saveRecord(recordData,function(freshRecordData){
+                api.records.save(recordData,function(freshRecordData){
                     commit("setRecord",freshRecordData);
                     resolve(me.getters.getRecordByUid(freshRecordData.uid))
                 },function(err){
@@ -61,7 +61,7 @@ const store = new Vuex.Store({
         },
         getRecordByUid ({ commit }, uid) {
             return new Promise((resolve, reject) => {
-                api.getRecordByUid(uid,function(freshRecordData){
+                api.records.byUid(uid,function(freshRecordData){
                     commit("setRecord",freshRecordData);
                     resolve(freshRecordData)
                 },function(err){
@@ -71,8 +71,7 @@ const store = new Vuex.Store({
         },
         deleteRecordByUid ({ commit }, uid) {
             return new Promise((resolve, reject) => {
-                api.deleteRecordByUid(uid,function(deletedUid){
-                    console.log("b",deletedUid)
+                api.records.delete(uid,function(deletedUid){
                     commit("deleteRecord",deletedUid);
                     resolve(deletedUid)
                 },function(err){
@@ -122,7 +121,7 @@ const store = new Vuex.Store({
 
 
 for(let recordType of recordDefinitions){
-    api.recordsList(recordType.type,{},
+    api.records.list(recordType.type,{},
         function(records){
             for(let r of records){
                 store.state.records.push(r);
