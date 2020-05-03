@@ -89,11 +89,7 @@
             setImage(e){
                 // const file = e;
                 const file = e.target.files[0];
-                console.log(file)
-                // this.file = file
                 this.filename = file.name;
-                console.log(this.filename)
-
                 if (!file.type.includes("image/")) {
                     alert("Please select an image file");
                     return;
