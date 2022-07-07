@@ -16,7 +16,7 @@
     "core-js": "^3.6.4",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "query-string": "^6.11.1",
     "querystring": "^0.2.0",
     "sass": "^1.26.3",
